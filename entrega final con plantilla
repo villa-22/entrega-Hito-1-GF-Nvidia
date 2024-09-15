@@ -14,21 +14,31 @@ library(tidyquant)
 #Hito 1:
 ##Descripción Activo y Contexto
 ###Definición
-El activo elegido fue Nvidia Corporation, una empresa líder en la fabricación de unidades de procesamiento gráfico (GPUs) y pionera en el desarrollo de tecnologías clave como la inteligencia artificial (IA), el aprendizaje profundo y el gaming. Nvidia ha jugado un rol fundamental en la transformación digital, ya que sus productos son esenciales para la computación en la nube, el desarrollo de vehículos autónomos, y el procesamiento masivo de datos en sectores como la salud y la robótica.
-
-Nvidia fue fundada en 1993 por Jensen Huang, Chris Malachowsky y Curtis Priem, y se ha expandido para ser una de las principales empresas de tecnología en el mundo. La empresa se centra en el diseño de GPUs, que inicialmente se utilizaban principalmente en gráficos para videojuegos, pero que ahora son cruciales para entrenar redes neuronales y realizar cálculos masivos en entornos de alta computación.
+El sector tecnológico se caracteriza por la innovación continua en áreas como la inteligencia artificial y los semiconductores, que han transformado diversas industrias (Brynjolfsson & McAfee, 2014),
+el libro "The Second Machine Age: El libro "Work, Progress, and Prosperity in a Time of Brilliant Technologies" de Brynjolfsson y McAfee (2014) lo elegí en lugar de un artículo científico debido a su 
+importancia para analizar el impacto que las tecnologías disruptivas como la inteligencia artificial y los avances en hardware han tenido en la economía y la sociedad Este libro presenta un enfoque completo 
+y fácil de entender sobre los efectos de las tecnologías emergentes, que incluye tanto aspectos teóricos como prácticos. Ofrece una perspectiva integral difícil de encontrar en un artículo académico individual. 
+El libro ha sido citado y utilizado extensamente como una referencia clave en el estudio del impacto tecnológico en varias industrias, por lo que se convierte en un recurso esencial para analizar el papel de Nvidia 
+en el avance tecnológico.
+Empresas como Nvidia, que lideran el desarrollo de unidades de procesamiento gráfico (GPUs), juegan un papel crucial en impulsar la investigación y el desarrollo de hardware de alto rendimiento para la 
+inteligencia artificial y el procesamiento de datos masivos (Jouppi et al., 2017). Según Muro y Liu (2020), la inteligencia artificial está teniendo un impacto significativo en la economía global, creando 
+nuevas oportunidades en sectores como la manufactura y los servicios.
 
 ###Motivación
-Elegí Nvidia como activo de estudio debido a su relevancia en la transformación digital global y su posicionamiento como uno de los actores clave en sectores emergentes como la inteligencia artificial, el gaming y el desarrollo de supercomputadoras. En los últimos años, Nvidia ha visto un crecimiento significativo en sus ingresos, impulsado por la creciente demanda de sus productos en sectores como los centros de datos y la inteligencia artificial. Además, la alta volatilidad de sus acciones proporciona un interesante caso de estudio para el análisis de opciones financieras.
+Elegí Nvidia como activo de estudio debido a su relevancia en la transformación digital global y su posicionamiento como uno de los actores clave en sectores emergentes como la inteligencia artificial,
+el gaming y el desarrollo de supercomputadoras. En los últimos años, Nvidia ha visto un crecimiento significativo en sus ingresos, impulsado por la creciente demanda de sus productos en sectores como los 
+centros de datos y la inteligencia artificial. Además, la alta volatilidad de sus acciones proporciona un interesante caso de estudio para el análisis de opciones financieras.
 
 ###Contexto
-En los últimos cinco años, el precio de las acciones de Nvidia ha mostrado una volatilidad considerable, con un crecimiento significativo entre 2020 y 2022, impulsado por el auge de la inteligencia artificial y el gaming. Sin embargo, ha experimentado grandes fluctuaciones debido a la incertidumbre del mercado y a la especulación en torno a las tecnologías emergentes.
+En los últimos cinco años, el precio de las acciones de Nvidia ha mostrado una volatilidad considerable, con un crecimiento significativo entre 2020 y 2022, impulsado por el auge de la inteligencia artificial
+y el gaming. Sin embargo, ha experimentado grandes fluctuaciones debido a la incertidumbre del mercado y a la especulación en torno a las tecnologías emergentes.
 En el siguiente gráfico, se puede observar la evolución del precio de cierre de Nvidia utilizando los datos históricos de la empresa.("https://github.com/villa-22/entrega-Hito-1-GF-Nvidia/blob/main/Captura%20de%20pantalla%20(123).png")
 tambien podemos observar la evolución de los Rendimientos Diarios de Nvidia en el siguente grafico ("https://github.com/villa-22/entrega-Hito-1-GF-Nvidia/blob/main/Captura%20de%20pantalla%20(124).png")
 y la evolución del Volumen de Transacciones de Nvidia en el siguente grafico ("https://github.com/villa-22/entrega-Hito-1-GF-Nvidia/blob/main/Captura%20de%20pantalla%20(125).png)
 
 ###Cálculo simbólico con SymPy
-Vamos a calcular el precio de la opción de compra europea utilizando la librería SymPy y los datos históricos de Nvidia. Posteriormente, este precio de la opción será utilizado en los modelos binomial y Black-Scholes.
+Vamos a calcular el precio de la opción de compra europea utilizando la librería SymPy y los datos históricos de Nvidia. Posteriormente, este precio de la opción será utilizado en los modelos binomial y
+Black-Scholes.
 
 Código completo con SymPy:
 # Importamos las librerías necesarias
@@ -87,10 +97,12 @@ Prices = Matrix([[1], [piNA[0][pi_u]], [piNA[0][pi_d]]]).transpose() * W
 precio_opcion = Prices.subs([(d, 0.5), (u, S_final / S0), (r, 1.01)])
 precio_opcion
 Explicación:
-Este código utiliza los datos históricos de Nvidia para derivar simbólicamente el precio de la opción de compra europea. Usamos el Teorema Fundamental de Valoración de Activos para encontrar las probabilidades ajustadas de los posibles estados del mercado. El precio resultante de la opción se usará en los siguientes cálculos.
+Este código utiliza los datos históricos de Nvidia para derivar simbólicamente el precio de la opción de compra europea. Usamos el Teorema Fundamental de Valoración de Activos para encontrar las probabilidades
+ajustadas de los posibles estados del mercado. El precio resultante de la opción se usará en los siguientes cálculos.
 
 ###Modelo Binomial
-El Modelo Binomial de Valoración de Opciones, también conocido como el modelo de Cox-Ross-Rubinstein (1979), estima el valor de una opción mediante la construcción de un árbol binomial que modela posibles movimientos del precio del activo subyacente en el tiempo.
+El Modelo Binomial de Valoración de Opciones, también conocido como el modelo de Cox-Ross-Rubinstein (1979), estima el valor de una opción mediante la construcción de un árbol binomial que modela posibles
+movimientos del precio del activo subyacente en el tiempo.
 
 Aplicación del precio de la opción calculado
 Usamos el precio de la opción calculado con SymPy como referencia para realizar los cálculos con el modelo binomial.
@@ -118,7 +130,8 @@ precio_binomial <- binomial_model(cu, p, cd, r)
 print(paste("El precio de la opción con el Modelo Binomial es ", round(precio_binomial, 2), "USD"))
 
 ###Modelo Black-Scholes
-El Modelo Black-Scholes, propuesto por Fischer Black y Myron Scholes en 1973, es un modelo matemático que se utiliza para la valoración de opciones europeas. Este modelo asume que los precios de los activos siguen un movimiento browniano y permite calcular el valor de una opción con base en la volatilidad del activo subyacente.
+El Modelo Black-Scholes, propuesto por Fischer Black y Myron Scholes en 1973, es un modelo matemático que se utiliza para la valoración de opciones europeas. Este modelo asume que los precios de los activos 
+siguen un movimiento browniano y permite calcular el valor de una opción con base en la volatilidad del activo subyacente.
 
 {r}
 black_scholes <- function(S, K, t, r, sigma) {
@@ -136,13 +149,17 @@ precio_black_scholes <- black_scholes(S, K, T, r, sigma)
 print(paste("El precio de la opción con el Modelo Black-Scholes es ", round(precio_black_scholes, 2), "USD"))
 
 Comparación de Modelos
-En el análisis realizado sobre las acciones de Nvidia, ambos modelos financieros, Black-Scholes y el Modelo Binomial, arrojaron un valor igual para la opción call: 67.15 USD. A pesar de que los resultados son iguales en este caso, es importante entender las diferencias fundamentales entre ambos modelos y en qué contextos uno podría ser más adecuado que el otro.
+En el análisis realizado sobre las acciones de Nvidia, ambos modelos financieros, Black-Scholes y el Modelo Binomial, arrojaron un valor igual para la opción call: 67.15 USD. A pesar de que los resultados son
+iguales en este caso, es importante entender las diferencias fundamentales entre ambos modelos y en qué contextos uno podría ser más adecuado que el otro.
 
 1. Modelo Binomial
-El Modelo Binomial de Valoración de Opciones, propuesto por Cox, Ross y Rubinstein (1979), es un enfoque discreto para la valoración de opciones. Este modelo asume que el precio de la acción puede moverse hacia arriba o hacia abajo en cada paso del tiempo, formando un árbol de posibilidades. En el análisis, se calculó que el precio de la opción call con este modelo fue de 67.15 USD.
+El Modelo Binomial de Valoración de Opciones, propuesto por Cox, Ross y Rubinstein (1979), es un enfoque discreto para la valoración de opciones. Este modelo asume que el precio de la acción puede moverse 
+hacia arriba o hacia abajo en cada paso del tiempo, formando un árbol de posibilidades. En el análisis, se calculó que el precio de la opción call con este modelo fue de 67.15 USD.
 2. Modelo Black-Scholes
-El Modelo Black-Scholes, desarrollado por Fischer Black y Myron Scholes en 1973, es un modelo matemático que asume que el precio de la acción subyacente sigue un movimiento browniano y que la volatilidad es constante a lo largo del tiempo. En este caso, el valor calculado para la opción call fue también de 67.15 USD, igual que en el modelo binomial.
-En resumen, ambos modelos proporcionan resultados válidos y útiles en el análisis de las opciones de Nvidia. Sin embargo, la elección de cuál usar depende del tipo de opción que se está valorando y de los supuestos que mejor se adapten a las características del activo subyacente y del mercado en el que opera.
+El Modelo Black-Scholes, desarrollado por Fischer Black y Myron Scholes en 1973, es un modelo matemático que asume que el precio de la acción subyacente sigue un movimiento browniano y que la volatilidad es
+constante a lo largo del tiempo. En este caso, el valor calculado para la opción call fue también de 67.15 USD, igual que en el modelo binomial.
+En resumen, ambos modelos proporcionan resultados válidos y útiles en el análisis de las opciones de Nvidia. Sin embargo, la elección de cuál usar depende del tipo de opción que se está valorando y de los
+supuestos que mejor se adapten a las características del activo subyacente y del mercado en el que opera.
 
 Bibliografía
 Black, F., & Scholes, M. (1973). The pricing of options and corporate liabilities. Journal of Political Economy, 81(3), 637-654.
