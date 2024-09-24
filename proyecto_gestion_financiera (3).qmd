@@ -1,0 +1,285 @@
+---
+title: "Proyecto Gestión Financiera"
+author: "Matías Villaseca Torres"
+date: "2024-09-25"
+format: html
+---
+
+# 1.Descripción Activo y Contexto
+
+## Definición
+
+El sector tecnológico se caracteriza por la innovación continua en áreas como la inteligencia artificial y los semiconductores, que han transformado diversas industrias (Brynjolfsson & McAfee, 2014).
+
+El libro "The Second Machine Age: Work, Progress, and Prosperity in a Time of Brilliant Technologies" de Brynjolfsson y McAfee (2014) lo elegí en lugar de un artículo científico debido a su importancia para analizar el impacto que las tecnologías disruptivas como la inteligencia artificial y los avances en hardware han tenido en la economía y la sociedad.
+
+## Motivación
+
+Elegí Nvidia como activo de estudio debido a su relevancia en la transformación digital global y su posicionamiento como uno de los actores clave en sectores emergentes como la inteligencia artificial, el gaming y el desarrollo de supercomputadoras. En los últimos años, Nvidia ha visto un crecimiento significativo en sus ingresos, impulsado por la creciente demanda de sus productos en sectores como los centros de datos y la inteligencia artificial. Además, la alta volatilidad de sus acciones proporciona un interesante caso de estudio para el análisis de opciones financieras.
+
+## Contexto
+
+En los últimos cinco años, el precio de las acciones de Nvidia ha mostrado una volatilidad considerable, con un crecimiento significativo entre 2020 y 2022, impulsado por el auge de la inteligencia artificial y el gaming. Sin embargo, ha experimentado grandes fluctuaciones debido a la incertidumbre del mercado y a la especulación en torno a las tecnologías emergentes.
+
+# 2.Análisis de Variables/Activos
+
+## 2.1 Precio de las Acciones de Nvidia
+
+El análisis del precio de cierre de las acciones de Nvidia en los últimos cinco años, basándonos en los datos proporcionados, muestra: • Precio más reciente (al 6 de septiembre de 2024): 101.79 USD • Desviación Estándar Anualizada: 53.48% (volatilidad calculada a partir de los rendimientos diarios) Estos datos indican una alta volatilidad en el precio de las acciones, reflejando grandes fluctuaciones en el mercado. El gráfico a continuación muestra la evolución del precio de cierre de las acciones de Nvidia durante los últimos cinco años. Se puede observar una tendencia alcista significativa desde 2021, seguida de episodios de alta volatilidad, particularmente en 2023 y 2024. Este aumento en el precio refleja el crecimiento sostenido de Nvidia en el sector tecnológico, impulsado por el avance de la inteligencia artificial, los semiconductores y el gaming.
+
+```{r}
+# Suprimir los mensajes al cargar librerías
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(dplyr))
+
+# Leer el archivo CSV sin mostrar el mensaje de especificación de columnas
+nvidia_data <- read_csv("NVDA Historical Data (2).csv", show_col_types = FALSE)
+
+# Convertir 'Date' a formato de fecha solo una vez
+nvidia_data$Date <- as.Date(nvidia_data$Date, format = "%m/%d/%Y")
+
+# Convertir 'Vol.' de texto con "M" (millones) y "B" (billones) a numérico solo una vez
+nvidia_data$Vol <- as.numeric(gsub("M", "e6", gsub("B", "e9", nvidia_data$Vol.)))
+
+
+
+# Crear el gráfico del precio
+ggplot(nvidia_data, aes(x = Date, y = Price)) +
+  geom_line(color = "blue") +
+  labs(title = "Evolución del Precio de las Acciones de Nvidia",
+       x = "Fecha", y = "Precio de Cierre (USD)") +
+  theme_minimal()
+
+```
+
+## 2.2 Volumen de Transacciones
+
+El volumen de transacciones se refiere al número de acciones de Nvidia compradas y vendidas en un período determinado. Un mayor volumen suele indicar un mayor interés en el activo y puede correlacionarse con la volatilidad y liquidez del mercado. El gráfico que se presenta a continuación ilustra la evolución del volumen de transacciones de las acciones de Nvidia durante los últimos cinco años. Se puede apreciar que los volúmenes de transacción han fluctuado de manera significativa, alcanzando picos en momentos de alta volatilidad y eventos clave de mercado. Esto sugiere que el interés de los inversores ha sido considerablemente alto en periodos de cambios importantes en el precio de la acción.
+
+```{r}
+# Cargar las librerías necesarias y suprimir los mensajes al cargar
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(dplyr))
+
+# Leer el archivo CSV sin mostrar el mensaje de especificación de columnas
+nvidia_data <- read_csv("NVDA Historical Data (2).csv", show_col_types = FALSE)
+
+# Convertir 'Date' a formato de fecha (solo una vez)
+nvidia_data$Date <- as.Date(nvidia_data$Date, format="%m/%d/%Y")
+
+# Convertir 'Vol.' de texto con "M" (millones) y "B" (billones) a numérico (solo una vez)
+nvidia_data$Vol <- as.numeric(gsub("M", "e6", gsub("B", "e9", nvidia_data$Vol.)))
+
+
+
+# Crear el gráfico del volumen de transacciones
+ggplot(nvidia_data, aes(x = Date, y = Vol)) +
+  geom_line(color = "orange") +
+  labs(title = "Evolución del Volumen de Transacciones de Nvidia",
+       x = "Fecha", y = "Volumen (número de acciones)") +
+  theme_minimal()
+
+```
+
+## 2.3 Volatilidad
+
+La volatilidad mide la variabilidad en el precio de las acciones. Una alta volatilidad sugiere que el precio de las acciones está sujeto a grandes fluctuaciones, lo que afecta la valoración de las opciones. En el siguiente gráfico, se representa la evolución de los rendimientos diarios de las acciones de Nvidia, que miden la volatilidad del activo. Se pueden notar picos de alta volatilidad, especialmente entre 2020 y 2023, que coinciden con eventos clave del mercado. Este comportamiento refleja la alta sensibilidad del precio de Nvidia a los cambios del mercado y la creciente especulación en torno a sus acciones.
+
+```{r}
+# Suprimir los mensajes al cargar las librerías
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(dplyr))
+
+# Leer el archivo CSV sin mostrar el mensaje de especificación de columnas
+nvidia_data <- read_csv("NVDA Historical Data (2).csv", show_col_types = FALSE)
+
+# Convertir 'Date' a formato de fecha solo una vez
+nvidia_data$Date <- as.Date(nvidia_data$Date, format = "%m/%d/%Y")
+
+# Convertir 'Vol.' de texto con "M" (millones) y "B" (billones) a numérico solo una vez
+nvidia_data$Vol <- as.numeric(gsub("M", "e6", gsub("B", "e9", nvidia_data$Vol.)))
+
+
+
+# Calcular los rendimientos diarios
+nvidia_data <- nvidia_data %>%
+  arrange(Date) %>%
+  mutate(Rendimientos = (Price - lag(Price)) / lag(Price))
+
+# Crear el gráfico de rendimientos diarios
+ggplot(nvidia_data %>% filter(!is.na(Rendimientos)), aes(x = Date, y = Rendimientos)) +
+  geom_line(color = "green") +
+  labs(title = "Evolución de los Rendimientos Diarios de Nvidia",
+       x = "Fecha", y = "Rendimientos Diarios") +
+  theme_minimal()
+
+
+```
+
+## 3.Activo Derivado: Opciones sobre Acciones de Nvidia
+
+# 3.1 Descripción del Activo Derivado
+
+Las opciones sobre acciones son contratos financieros que permiten a los inversores comprar (call) o vender (put) acciones a un precio específico en una fecha futura. La valoración de estas opciones depende en gran medida del precio del activo subyacente, en este caso, las acciones de Nvidia.
+
+# 3.2 Datos de Evolución
+
+Para valorar las opciones sobre acciones de Nvidia, consideramos los siguientes datos calculados a partir del archivo histórico: Precio más reciente de la acción (6 de septiembre de 2024): 101.79 USD Precio de Ejercicio: 35 USD Tiempo hasta el Vencimiento: 6 meses Volatilidad: 53.48% (volatilidad anualizada calculada a partir de los rendimientos diarios) Tasa de Interés Libre de Riesgo: 2% anual
+
+# 3.3 Procedimiento de Valoración
+
+Utilizaremos el modelo Black-Scholes para valorar una opción call. La fórmula es: C=S0⋅N(d1)-X⋅e-r⋅T⋅N(d2)
+donde: C = Precio de la opción call 
+S0 = Precio actual de la acción (30.27 USD) 
+X = Precio de ejercicio (35 USD) 
+T = Tiempo hasta el vencimiento (0.5 años) 
+R = Tasa de interés libre de riesgo (2% anual) 
+σ (sigma) = Volatilidad (29.68 USD) 
+N(d1) y N(d2) = Funciones de distribución acumulativa de la normal estándar 
+Cálculos y Resultados: Calcular d1 y d2 usando las fórmulas: d1=(ln(S0/X)+(r+σ\^2/2)⋅T )/(σ⋅√T) d2=d1-σ⋅√T Sustituir d1d_1d1 y d2d_2d2 en la fórmula de Black-Scholes para obtener el valor de la opción call.
+
+```{r}
+# Leer los datos del archivo CSV
+data <- read.csv("NVDA Historical Data (2).csv")
+
+# Convertir la columna 'Date' a formato Date
+data$Date <- as.Date(data$Date, format = "%m/%d/%Y")
+
+# Ordenar los datos por fecha
+data <- data[order(data$Date), ]
+
+# Convertir la columna 'Price' a numérica
+data$Price <- as.numeric(data$Price)
+
+# Calcular los rendimientos diarios
+data$Returns <- c(NA, diff(data$Price) / head(data$Price, -1))
+
+# Calcular la volatilidad histórica (anualizada)
+volatility <- sd(na.omit(data$Returns)) * sqrt(252)  # 252 días en un año
+cat(sprintf("Volatilidad histórica anualizada: %.2f%%\n", volatility * 100))
+
+```
+
+## 4. Comparación de Modelos
+En este análisis se emplearon tres modelos diferentes para valorar una opción call sobre las acciones de Nvidia: Black-Scholes, Árbol Binomial y Simulación Monte Carlo. A continuación, se presentan las conclusiones obtenidas de cada uno de estos modelos.
+
+# 4.1 Modelo Black-Scholes
+El modelo Black-Scholes es un enfoque teórico ampliamente utilizado para valorar opciones. Este modelo asume un mercado sin fricciones y volatilidad constante. Al aplicar este modelo a la opción call sobre las acciones de Nvidia, se obtuvo un valor de 67.15 USD.
+```{r}
+# Parámetros para el modelo Black-Scholes
+S0 <- tail(data$Price, 1)  # Precio actual de la acción
+X <- 35  # Precio de ejercicio
+T <- 0.5  # Tiempo hasta el vencimiento (6 meses)
+r <- 0.02  # Tasa de interés libre de riesgo
+sigma <- volatility  # Volatilidad histórica
+
+# Calcular d1 y d2
+d1 <- (log(S0 / X) + (r + 0.5 * sigma^2) * T) / (sigma * sqrt(T))
+d2 <- d1 - sigma * sqrt(T)
+
+# Valor de la opción call (Modelo Black-Scholes)
+C <- S0 * pnorm(d1) - X * exp(-r * T) * pnorm(d2)
+cat(sprintf("Valor de la opción call (Black-Scholes): %.2f USD\n", C))
+```
+
+Este resultado se basa en los siguientes parámetros:
+
+Precio actual de la acción: 101.79 USD
+Precio de ejercicio: 35 USD
+Tiempo hasta el vencimiento: 6 meses (0.5 años)
+Tasa de interés libre de riesgo: 2%
+Volatilidad histórica anualizada: 53.48%
+
+# 4.2 Modelo Binomial
+El modelo binomial permite valorar opciones dividiendo el tiempo hasta el vencimiento en varios pasos discretos, en los que la acción puede moverse hacia arriba o hacia abajo en cada paso. Esto ofrece mayor flexibilidad en comparación con el modelo Black-Scholes, ya que puede adaptarse a cambios en la volatilidad y en la estructura del mercado.
+
+En este análisis, se utilizó un modelo binomial con 100 pasos. El valor de la opción call obtenido fue de 67.15 USD, lo que confirma la consistencia con el modelo Black-Scholes.
+```{r}
+# Parámetros del modelo binomial
+N <- 100  # Número de pasos
+dt <- T / N  # Incremento de tiempo por paso
+u <- exp(sigma * sqrt(dt))  # Factor de subida
+d <- 1 / u  # Factor de bajada
+p <- (exp(r * dt) - d) / (u - d)  # Probabilidad ajustada al riesgo
+
+# Inicializar matrices para el árbol binomial
+price_tree <- matrix(0, N + 1, N + 1)
+price_tree[1, 1] <- S0
+
+# Construir el árbol de precios
+for (i in 2:(N + 1)) {
+  for (j in 1:i) {
+    price_tree[j, i] <- S0 * u^(i - j) * d^(j - 1)
+  }
+}
+
+# Crear el árbol de valores de la opción call
+option_tree <- matrix(0, N + 1, N + 1)
+option_tree[, N + 1] <- pmax(0, price_tree[, N + 1] - X)
+
+# Retroceder para calcular el valor de la opción en el nodo inicial
+for (i in N:1) {
+  for (j in 1:i) {
+    option_tree[j, i] <- exp(-r * dt) * (p * option_tree[j, i + 1] + (1 - p) * option_tree[j + 1, i + 1])
+  }
+}
+
+# Valor de la opción call (Modelo Binomial)
+valor_opcion_binomial <- option_tree[1, 1]
+cat(sprintf("Valor de la opción call (Árbol Binomial): %.2f USD\n", valor_opcion_binomial))
+```
+
+Este modelo tiene la ventaja de ser más flexible, pero en este caso específico, dado que las condiciones asumidas en el mercado son similares a las del modelo Black-Scholes (volatilidad constante y sin fricciones), ambos modelos producen el mismo resultado.
+
+# 4.3 Simulación Monte Carlo
+La simulación Monte Carlo es un método numérico que genera múltiples trayectorias simuladas para los precios futuros de las acciones y, a partir de ellas, calcula el valor de la opción. En este análisis, se realizaron 10,000 simulaciones de posibles trayectorias de precios de Nvidia, basadas en la misma volatilidad y parámetros utilizados en los modelos anteriores.
+
+```{r}
+# Simulación de precios futuros utilizando Monte Carlo
+num_simulaciones <- 10000
+num_dias <- T * 252  # Número de días en el horizonte temporal
+
+# Inicializar matriz para precios simulados
+precios_simulados <- matrix(0, num_simulaciones, num_dias)
+precios_simulados[, 1] <- S0
+
+# Simular precios futuros basados en volatilidad y tasa de interés
+for (i in 2:num_dias) {
+  rendimientos <- rnorm(num_simulaciones, mean = r / 252, sd = sigma / sqrt(252))
+  precios_simulados[, i] <- precios_simulados[, i - 1] * (1 + rendimientos)
+}
+
+# Calcular el valor de la opción call con Monte Carlo
+payoffs_call <- pmax(0, precios_simulados[, num_dias] - X)
+valor_opcion_mc <- mean(payoffs_call) * exp(-r * T)
+cat(sprintf("El valor estimado de la opción call (Monte Carlo)fue: %.2f USD\n", valor_opcion_mc))
+```
+ligeramente superior a los valores obtenidos con los modelos de Black-Scholes y Binomial. Esta diferencia puede deberse a la naturaleza probabilística del método Monte Carlo, que permite modelar con mayor flexibilidad las fluctuaciones del mercado.
+
+Además, se utilizó la simulación Monte Carlo para valorar una opción put. El valor estimado para la opción put fue de 0.02 USD, lo que sugiere que la probabilidad de que el precio de la acción de Nvidia caiga por debajo del precio de ejercicio de 35 USD en los próximos seis meses es muy baja.
+```{r}
+# Simulación para calcular el valor de la opción put
+payoffs_put <- pmax(0, X - precios_simulados[, num_dias])
+valor_put_mc <- mean(payoffs_put) * exp(-r * T)
+cat(sprintf("Valor estimado de la opción put (Monte Carlo): %.2f USD\n", valor_put_mc))
+```
+
+# 4.4 Comparación y Conclusiones
+Los resultados obtenidos a través de los tres modelos son bastante consistentes, especialmente entre los modelos Black-Scholes y Binomial, que arrojaron el mismo valor para la opción call (67.15 USD). Esto es esperable dado que ambos modelos utilizan suposiciones similares sobre la estructura de volatilidad y el mercado sin fricciones.
+
+Por otro lado, el modelo Monte Carlo mostró un valor ligeramente superior para la opción call 
+```{r}
+cat(sprintf("El valor estimado de la opción call (Monte Carlo)fue: %.2f USD\n", valor_opcion_mc))
+```            
+lo que puede explicarse por la naturaleza probabilística de las simulaciones y su capacidad para modelar una mayor variedad de trayectorias de precios.
+
+Además, la simulación de Monte Carlo permitió valorar una opción put, que arrojó un valor de 0.02 USD, demostrando que, bajo las condiciones actuales, es poco probable que el precio de la acción de Nvidia caiga por debajo del precio de ejercicio en el corto plazo.
+
+En conclusión, aunque los tres métodos ofrecen resultados consistentes, el modelo binomial y el modelo Monte Carlo ofrecen mayor flexibilidad para escenarios en los que la volatilidad o las condiciones del mercado no son constantes. Sin embargo, en este caso particular, el modelo Black-Scholes sigue siendo una herramienta eficaz para valorar las opciones, dada la similitud de los resultados obtenidos.
+
+## 5.Bibliografía
+
+Brynjolfsson, E., & McAfee, A. (2014). The Second Machine Age: Work, Progress, and Prosperity in a Time of Brilliant Technologies. W. W. Norton & Company. Muro, M., & Liu, S. (2020). AI and the Economy: How Artificial Intelligence is Transforming the Workforce. Brookings Institution. Venkatesh, V., Morris, M. G., Davis, G. B., & Davis, F. D. (2003). User Acceptance of Information Technology: Toward a Unified View. MIS Quarterly, 27(3), 425-478. Jouppi, N. P., Young, C., Patil, N., & Patterson, D. (2017). In-Datacenter Performance Analysis of a Tensor Processing Unit. Proceedings of the 44th Annual International Symposium on Computer Architecture (ISCA), 1-12.
